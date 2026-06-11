@@ -4,6 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Puck101 · 冰球指南针 — 看懂冰球只需5分钟</title>
+<meta name="description" content="Puck101 是一份面向冰球小白的科普指南。从裁判手势、冰场规则、球星数据到黑话词典，5分钟让你从看不懂到能陪朋友聊球。">
+<meta property="og:title" content="Puck101 · 冰球指南针 — 看懂冰球只需5分钟">
+<meta property="og:description" content="裁判手势动画、冰场规则可视化、黑话词典、球星数据……冰球入门一站式指南，5分钟让你从路人变行家。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zhangzhenguo821.github.io/puck101/">
+<meta property="og:image" content="https://zhangzhenguo821.github.io/puck101/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="Puck101 · 冰球指南针">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Puck101 · 冰球指南针 — 看懂冰球只需5分钟">
+<meta name="twitter:description" content="裁判手势动画、冰场规则可视化、黑话词典、球星数据……冰球入门一站式指南。">
+<meta name="twitter:image" content="https://zhangzhenguo821.github.io/puck101/og-image.png"><meta name="referrer" content="no-referrer">
 <style>
 /* ==================== 🌤️ 系统浅色模式 (Light Mode) ==================== */
 :root {
@@ -210,6 +224,12 @@ h1 em { font-style: normal; color: var(--ice); }
   border-radius: 22px; padding: 28px; position: relative;
 }
 .rink-hint { text-align: center; font-size: 12px; color: var(--apple-tertiary); margin-top: 12px; }
+/* 冰场触摸提示气泡 */
+.rink-tooltip { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); background: var(--apple-text); color: #fff; padding: 8px 18px; border-radius: 14px; font-size: 13px; white-space: nowrap; z-index: 10; pointer-events: none; transition: opacity .25s,transform .25s; box-shadow: 0 4px 20px rgba(0,0,0,.25); }
+.rink-tooltip::after { content:''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--apple-text); }
+.rink-tooltip.hidden { opacity: 0; transform: translateX(-50%) translateY(8px); }
+.rink-touch-glow { filter: drop-shadow(0 0 12px rgba(0,229,255,.85)) !important; stroke-width: 5 !important; }
+.rink-touch-glow.red { filter: drop-shadow(0 0 12px rgba(255,69,58,.85)) !important; }
 
 svg.rink { width: 100%; cursor: pointer; border-radius: 14px; }
 .rink-zone { cursor: pointer; transition: opacity .2s; }
@@ -857,7 +877,8 @@ footer a { color: var(--ice); text-decoration: none; }
         <rect x="378" y="8" width="174" height="304" fill="transparent" class="rink-zone" onclick="showRinkInfo('attackzone');setActiveByKey('attackzone')" rx="40" style="cursor:pointer;"/>
         <text x="280" y="305" text-anchor="middle" fill="#1a3a5c" font-size="9" opacity=".6" class="rink-label">← 悬停高亮 · 点击解锁 →</text>
       </svg>
-      <p class="rink-hint">鼠标悬停蓝色/红色线条可高亮，点击线条或区域查看规则</p>
+      <div id="rink-tooltip" class="rink-tooltip hidden">👆 再点一次查看详情</div>
+      <p class="rink-hint">移动端：点击区域一次高亮，再点查看详情。电脑端：悬停高亮，点击查看。</p>
 
       <div class="rink-nav-btns" id="rink-nav-btns">
         <button class="rink-nav-btn active" data-key="blueline" onclick="showRinkInfo('blueline');setActive(this)">🔵 蓝线/越位</button>
@@ -1073,18 +1094,18 @@ footer a { color: var(--ice); text-decoration: none; }
     <h2 class="title" style="margin-bottom:0;">冰球裁判不说话，<br>全靠<span>手势说话</span></h2>
     <button class="gesture-reset-btn" onclick="resetAllGestures()">↩ 全部复位</button>
   </div>
-  <p class="subtitle" style="margin-top:12px;">点击卡片翻转查看含义。在嘈杂的冰场里，这就是裁判的语言。</p>
+  <p class="subtitle" style="margin-top:12px;">正面是判罚结果，点击翻转看裁判为什么要这么做。</p>
 
   <div class="gesture-grid" id="gesture-grid">
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/HuLc9aOLFbsAAAAM/hockey-referee-washout.gif" alt="Washout" loading="lazy"></div>
-        <div class="gesture-action">双手水平横扫</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
-      </div>
-      <div class="gesture-back">
         <div class="gesture-name">Washout</div>
         <div class="gesture-name-cn">无效 / 取消</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
+      </div>
+      <div class="gesture-back">
+        <div class="gesture-action">手势：双手水平横扫</div>
         <div class="gesture-detail">由主裁判做：<strong style="color:var(--apple-text)">进球无效！</strong><br>由边裁做：没有越位 / 死球取消。</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
@@ -1093,12 +1114,12 @@ footer a { color: var(--ice); text-decoration: none; }
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="34" y2="60" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 42px;animation:armRaise 2.2s ease-in-out infinite"><line x1="60" y1="42" x2="86" y2="12" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="86" cy="12" r="4" fill="#0071E3"/></g></svg></div>
-        <div class="gesture-action">单手高举指向天空</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
-      </div>
-      <div class="gesture-back">
         <div class="gesture-name">Delayed Penalty</div>
         <div class="gesture-name-cn">延迟判罚</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
+      </div>
+      <div class="gesture-back">
+        <div class="gesture-action">手势：单手高举指向天空</div>
         <div class="gesture-detail">有犯规发生，但被犯规方还控球。防守方一旦触球立刻吹停。这时进攻方会<strong style="color:var(--apple-text)">疯狂撤换门将</strong>形成短暂多打少！</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
@@ -1107,12 +1128,12 @@ footer a { color: var(--ice); text-decoration: none; }
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="28" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="37" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 44px;animation:fistsLeft 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="40" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="34" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g><g style="transform-origin:60px 44px;animation:fistsRight 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="80" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="78" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g></svg></div>
-        <div class="gesture-action">头顶交叉双拳</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
+        <div class="gesture-name">Penalty Shot</div>
+        <div class="gesture-name-cn">罚刀</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
       </div>
       <div class="gesture-back">
-        <div class="gesture-name">Penalty Shot</div>
-        <div class="gesture-name-cn">罚刀（惩罚罚球）</div>
+        <div class="gesture-action">手势：头顶交叉双拳</div>
         <div class="gesture-detail">裁判头顶做出交叉双拳手势，宣告<strong style="color:var(--apple-text)">全场最高潮</strong>——1对1单刀罚刀！</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
@@ -1121,12 +1142,12 @@ footer a { color: var(--ice); text-decoration: none; }
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/1pvgeLXIptYAAAAM/every-player-on-the-ice-ten-minute-misconduct.gif" alt="Misconduct" loading="lazy"></div>
-        <div class="gesture-action">双手叉腰</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
-      </div>
-      <div class="gesture-back">
         <div class="gesture-name">Misconduct</div>
         <div class="gesture-name-cn">违纪大罚 · 10分钟</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
+      </div>
+      <div class="gesture-back">
+        <div class="gesture-action">手势：双手叉腰</div>
         <div class="gesture-detail">裁判双手叉腰，意味着某人被判10分钟违纪大罚，通常针对顶撞裁判或语言侮辱。队友可替补上场。</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
@@ -1135,13 +1156,13 @@ footer a { color: var(--ice); text-decoration: none; }
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="62" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="62" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="62" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="36" y2="62" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><circle cx="73" cy="78" r="4.5" fill="none" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="2 2"/><g style="transform-origin:60px 42px;animation:kneeTap 1.6s ease-in-out infinite"><line x1="60" y1="42" x2="82" y2="78" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="82" cy="78" r="3.5" fill="#0071E3"/></g></svg></div>
-        <div class="gesture-action">手拍膝盖示意</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
-      </div>
-      <div class="gesture-back">
         <div class="gesture-name">Kneeing</div>
         <div class="gesture-name-cn">膝盖顶人</div>
-        <div class="gesture-detail">裁判单腿抬膝，表示判定一名球员故意用膝盖撞击对手，极危险的犯规，可能毁掉对方职业生涯。</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
+      </div>
+      <div class="gesture-back">
+        <div class="gesture-action">手势：单腿抬膝示意</div>
+        <div class="gesture-detail">裁判手拍膝盖，表示判定一名球员故意用膝盖撞击对手，极危险的犯规，可能毁掉对方职业生涯。</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
     </div>
@@ -1149,12 +1170,12 @@ footer a { color: var(--ice); text-decoration: none; }
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
         <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/_fTX5CITMSQAAAAM/good-goal.gif" alt="Goal" loading="lazy"></div>
-        <div class="gesture-action">指向球门方向</div>
-        <div class="gesture-flip-hint">点击翻转查看 →</div>
-      </div>
-      <div class="gesture-back">
         <div class="gesture-name">Goal</div>
         <div class="gesture-name-cn">进球确认！</div>
+        <div class="gesture-flip-hint">点击翻转看细节 →</div>
+      </div>
+      <div class="gesture-back">
+        <div class="gesture-action">手势：指向球门方向</div>
         <div class="gesture-detail">裁判指向得分方球门，<strong style="color:var(--apple-text)">进球有效！</strong>计时器触发进球音效，全场沸腾。</div>
         <div class="gesture-back-close">← 点击收起</div>
       </div>
@@ -1432,6 +1453,33 @@ function setActiveByKey(key) {
   });
 }
 
+// ====== 冰场移动端触摸适配 ======
+let rinkTouchedEl = null;
+function initRinkTouch() {
+  if(!('ontouchstart' in window)) return;
+  const hint = document.querySelector('.rink-hint');
+  if(hint) hint.textContent = '👆 点击区域高亮，再点查看详情';
+  const tooltip = document.getElementById('rink-tooltip');
+  const rinkWrap = document.querySelector('.rink-svg-wrap');
+  document.querySelectorAll('.rink-zone, .rink-line-glow, .rink-clickable').forEach(el => {
+    el.addEventListener('touchstart', function(e) {
+      if(rinkTouchedEl && rinkTouchedEl !== this) {
+        rinkTouchedEl.classList.remove('rink-touch-glow','red');
+        rinkTouchedEl = null;
+      }
+      if(rinkTouchedEl === this) { tooltip.classList.add('hidden'); rinkTouchedEl=null; return; }
+      rinkTouchedEl = this;
+      this.classList.add('rink-touch-glow');
+      if(this.classList.contains('red-line')) this.classList.add('red');
+      const rect = rinkWrap.getBoundingClientRect();
+      tooltip.style.left = (e.touches[0].clientX - rect.left) + 'px';
+      tooltip.style.bottom = (rect.bottom - e.touches[0].clientY + 12) + 'px';
+      tooltip.classList.remove('hidden');
+      e.preventDefault();
+    }, {passive: false});
+  });
+}
+
 // ====== Position DB ======
 const posDB = {
   center: { tag:'中锋 · Center', tagColor:'teal', title:'球队的发动机与大脑', body:'中锋是攻防两端的核心枢纽。负责<strong>争球（Face-off）</strong>、组织进攻传球、参与防守换位，是球队最重要的位置之一。<br><br>现役代表：<strong style="color:var(--apple-secondary)">Connor McDavid（埃德蒙顿）</strong>——当代冰球之神。', skills:['争球','传球组织','射门','防守换位'] },
@@ -1515,13 +1563,66 @@ const dictData = [
 ];
 
 let currentCat = 'all', currentSearch = '';
+
+// ====== 拼音首字母映射表（词典高频字） ======
+const charPy = {
+'冰':'b','球':'q','饼':'b','杆':'g','局':'j','节':'j','扫':'s','车':'c','磨':'m','越':'y','位':'w',
+'死':'s','违':'w','例':'l','线':'x','争':'z','身':'s','体':'t','撞':'z','击':'j','门':'m','将':'j',
+'保':'b','护':'h','区':'q','蓝':'l','梯':'t','形':'x','前':'q','场':'c','逼':'b','抢':'q','后':'h',
+'撤':'c','回':'h','防':'f','抛':'p','切':'q','入':'r','中':'z','陷':'x','阱':'j','蝴':'h','蝶':'d',
+'流':'l','单':'d','刀':'d','赴':'f','会':'h','苹':'p','果':'g','助':'z','攻':'g','干':'g','谷':'g',
+'仓':'c','饼':'b','罪':'z','恶':'e','之':'z','桶':'t','进':'j','祝':'z','庆':'q','神':'s','级':'j',
+'发':'f','砸':'z','梁':'l','网':'w','戈':'g','迪':'d','豪':'h','帽':'m','子':'z','戏':'x','水':'s',
+'管':'g','工':'g','蓝':'l','领':'l','五':'w','号':'h','洞':'d','裆':'d','下':'x','直':'z','接':'j',
+'迎':'y','怒':'n','射':'s','罚':'f','室':'s','黑':'h','屋':'w','小':'x','大':'d','分':'f','钟':'z',
+'绊':'b','人':'r','犯':'f','规':'g','挥':'h','砍':'k','钩':'g','高':'g','恶':'e','墙':'q','持':'c',
+'双':'s','推':'t','阻':'z','挡':'d','打':'d','架':'j','惩':'c','假':'j','摔':'s','踢':'t','脚':'j',
+'跟':'g','科':'k','西':'x','值':'z','占':'z','有':'y','率':'l','芬':'f','威':'w','运':'y','气':'q',
+'指':'z','数':'s','预':'y','期':'q','扑':'p','救':'j','均':'j','失':'s','正':'z','负':'f','完':'w',
+'封':'f','零':'l','加':'j','时':'s','赛':'s','战':'z','常':'c','对':'d','优':'y','势':'s','金':'j',
+'俱':'j','乐':'l','部':'b','多':'d','少':'s'
+};
+
+function getPy(cn) {
+  let result = '';
+  for(let c of cn) {
+    if(charPy[c]) result += charPy[c];
+    else {
+      // fallback: use char code for unknown chars
+      const code = c.charCodeAt(0);
+      if(code >= 0x4e00 && code <= 0x9fff) result += '?';
+    }
+  }
+  return result;
+}
+
+// 为每个词条生成拼音首字母
+dictData.forEach(d => { d.py = getPy(d.cn); });
+
 function renderDict() {
   const grid = document.getElementById('dict-grid'), noResult = document.getElementById('dict-no-result');
   let filtered = dictData;
   if(currentCat !== 'all') filtered = filtered.filter(d => d.cat === currentCat);
   if(currentSearch.trim()) {
     const q = currentSearch.trim().toLowerCase();
-    filtered = filtered.filter(d => d.en.toLowerCase().includes(q) || d.cn.includes(q) || d.desc.includes(q));
+    filtered = filtered.filter(d => {
+      if(d.en.toLowerCase().includes(q)) return true;
+      if(d.cn.includes(q)) return true;
+      if(d.desc.includes(q)) return true;
+      // 拼音首字母匹配（如 xhw → 小黑屋）
+      if(d.py && d.py.includes(q)) return true;
+      // 拼音模糊：拆分连续字母，看是否都能匹配到词条中某个字的拼音
+      if(/^[a-z]{2,}$/.test(q) && q.length <= 10) {
+        let pyIdx = 0;
+        for(let ch of q) {
+          const pos = d.py.indexOf(ch, pyIdx);
+          if(pos === -1) { pyIdx = -1; break; }
+          pyIdx = pos + 1;
+        }
+        if(pyIdx >= 0) return true;
+      }
+      return false;
+    });
   }
   if(filtered.length === 0) { grid.innerHTML=''; noResult.classList.remove('hidden'); return; }
   noResult.classList.add('hidden');
@@ -1636,6 +1737,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDict();
   renderQuestion();
   showRinkInfo('blueline');
+  initRinkTouch();
 });
 </script>
 </body>
