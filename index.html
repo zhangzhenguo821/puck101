@@ -34,6 +34,10 @@
   --green: #248A3D;
   --red: #C12E2A;
   --section-gap: clamp(120px, 18vw, 240px);
+  /* ===== GIF 手势动画规范 ===== */
+  --gif-radius: 12px;
+  --gif-border: rgba(0,0,0,0.06);
+  --gif-shadow: 0 4px 15px rgba(0,0,0,0.04);
 }
 
 /* ==================== 🌑 系统深色模式 (Dark Mode) ==================== */
@@ -378,7 +382,17 @@ svg.rink { width: 100%; cursor: pointer; border-radius: 14px; }
 .gesture-card:hover { border-color: var(--apple-border-strong); transform: translateY(-3px); }
 .gesture-front, .gesture-back { padding: 28px 20px; }
 .gesture-front { text-align: center; }
-.gesture-emoji { font-size: 52px; display: block; margin-bottom: 16px; }
+.gesture-gif-wrap {
+  width: 100%; aspect-ratio: 1/1; overflow: hidden;
+  border-radius: var(--gif-radius); border: 1px solid var(--gif-border);
+  box-shadow: var(--gif-shadow); margin-bottom: 16px;
+}
+.gesture-gif {
+  width: 100%; height: 100%; object-fit: cover !important;
+  display: block; transition: transform .3s ease;
+}
+.gesture-card:hover .gesture-gif { transform: scale(1.05); }
+.gesture-emoji-fallback { font-size: 52px; display: block; margin-bottom: 16px; }
 .gesture-action { font-size: 13px; font-weight: 500; color: var(--apple-secondary); }
 .gesture-back { display: none; }
 .gesture-card.flipped .gesture-front { display: none; }
@@ -1041,7 +1055,7 @@ footer a { color: var(--ice); text-decoration: none; }
   <div class="gesture-grid" id="gesture-grid">
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">🙅</span>
+        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/HuLc9aOLFbsAAAAM/hockey-referee-washout.gif" alt="Washout" loading="lazy"></div>
         <div class="gesture-action">双手水平横扫</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1055,7 +1069,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">☝️</span>
+        <span class="gesture-emoji-fallback">☝️</span>
         <div class="gesture-action">单手高举指向天空</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1069,7 +1083,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">🤜🤛</span>
+        <span class="gesture-emoji-fallback">🤜🤛</span>
         <div class="gesture-action">头顶交叉双拳</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1083,7 +1097,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">🫳</span>
+        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/1pvgeLXIptYAAAAM/every-player-on-the-ice-ten-minute-misconduct.gif" alt="Misconduct" loading="lazy"></div>
         <div class="gesture-action">双手叉腰</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1097,7 +1111,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">🦵</span>
+        <span class="gesture-emoji-fallback">🦵</span>
         <div class="gesture-action">抬起膝盖</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1111,7 +1125,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji">🥅</span>
+        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/_fTX5CITMSQAAAAM/good-goal.gif" alt="Goal" loading="lazy"></div>
         <div class="gesture-action">指向球门方向</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
