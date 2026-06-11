@@ -16,7 +16,7 @@
   --apple-text: #1D1D1F;
   --apple-secondary: #515154;
   --apple-tertiary: #86868B;
-  --apple-border: rgba(0,0,0,0.06);
+  --apple-border: rgba(0,0,0,0.04);
   --apple-border-strong: rgba(0,0,0,0.10);
   --nav-bg: rgba(245,245,247,0.78);
   --card-bg-solid: rgba(255,255,255,0.60);
@@ -132,7 +132,7 @@ h2.title em, h2.title span { font-style: normal; color: var(--ice); }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
 h1 {
   font-size: clamp(44px, 8vw, 76px); font-weight: 800; line-height: 1.15;
-  letter-spacing: -0.04em; margin-bottom: 20px;
+  letter-spacing: -0.04em; margin-bottom: 24px;
   white-space: nowrap; word-break: keep-all;
 }
 h1 em { font-style: normal; color: var(--ice); }
@@ -629,10 +629,13 @@ footer a { color: var(--ice); text-decoration: none; }
 @media (max-width: 768px) {
   /* ----- 1. 首屏 Hero 紧缩 ----- */
   h1 {
-    font-size: clamp(34px, 7vw, 44px);
+    font-size: 2.0rem !important;
+    line-height: 1.25 !important;
     white-space: normal !important;
     word-break: keep-all;
-    padding: 0 10px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    padding: 0 16px;
   }
   .hero-desc {
     margin-bottom: 20px;
@@ -641,10 +644,11 @@ footer a { color: var(--ice); text-decoration: none; }
   .hero-btns {
     flex-direction: column;
     width: 100%;
-    padding: 0 16px;
+    padding: 0 24px;
     gap: 12px;
     margin-top: 20px;
     margin-bottom: 36px;
+    box-sizing: border-box;
   }
   .hero-btns button { width: 100%; }
   .hero-stats {
@@ -1245,7 +1249,7 @@ footer a { color: var(--ice); text-decoration: none; }
         <div class="star-hero-team">科罗拉多雪崩 · Colorado Avalanche</div>
         <div class="star-hero-tag">全能攻守型核心</div>
         <div class="star-hero-desc">攻守俱佳的全能型球员，2022年率队夺得斯坦利杯。高速突破和传球视野均为联盟顶级，科罗拉多的绝对灵魂。</div>
-        <div class="star-hero-stat">140<span class="star-hero-stat-label">单赛季巅峰积分 (2024 MVP)</span></div>
+        <div class="star-hero-stat">140<span class="star-hero-stat-label">2024 Hart Trophy MVP 得主</span></div>
       </div>
 
       <!-- Shesterkin -->
