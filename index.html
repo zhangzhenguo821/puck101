@@ -710,6 +710,29 @@ footer a { color: var(--ice); text-decoration: none; }
   }
   .star-hero-img img { max-width: 240px; max-height: 180px; }
 }
+
+/* ===== 裁判手势 SVG 动画关键帧 ===== */
+.gesture-svg { width: 100%; height: 100%; display: block; }
+@keyframes armRaise {
+  0%, 12% { transform: rotate(0deg); }
+  35%, 65% { transform: rotate(-118deg); }
+  88%, 100% { transform: rotate(0deg); }
+}
+@keyframes fistsLeft {
+  0%, 12% { transform: rotate(0deg); }
+  35%, 65% { transform: rotate(-52deg); }
+  88%, 100% { transform: rotate(0deg); }
+}
+@keyframes fistsRight {
+  0%, 12% { transform: rotate(0deg); }
+  35%, 65% { transform: rotate(52deg); }
+  88%, 100% { transform: rotate(0deg); }
+}
+@keyframes kneeTap {
+  0%, 12% { transform: rotate(0deg); }
+  30%, 70% { transform: rotate(28deg); }
+  88%, 100% { transform: rotate(0deg); }
+}
 </style>
 </head>
 <body>
@@ -1069,7 +1092,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji-fallback">☝️</span>
+        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="34" y2="60" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 42px;animation:armRaise 2.2s ease-in-out infinite"><line x1="60" y1="42" x2="86" y2="12" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="86" cy="12" r="4" fill="#0071E3"/></g></svg></div>
         <div class="gesture-action">单手高举指向天空</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1083,7 +1106,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji-fallback">🤜🤛</span>
+        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="28" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="37" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 44px;animation:fistsLeft 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="40" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="34" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g><g style="transform-origin:60px 44px;animation:fistsRight 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="80" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="78" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g></svg></div>
         <div class="gesture-action">头顶交叉双拳</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
@@ -1111,8 +1134,8 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <span class="gesture-emoji-fallback">🦵</span>
-        <div class="gesture-action">抬起膝盖</div>
+        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="62" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="62" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="62" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="36" y2="62" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><circle cx="73" cy="78" r="4.5" fill="none" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="2 2"/><g style="transform-origin:60px 42px;animation:kneeTap 1.6s ease-in-out infinite"><line x1="60" y1="42" x2="82" y2="78" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="82" cy="78" r="3.5" fill="#0071E3"/></g></svg></div>
+        <div class="gesture-action">手拍膝盖示意</div>
         <div class="gesture-flip-hint">点击翻转查看 →</div>
       </div>
       <div class="gesture-back">
