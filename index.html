@@ -48,10 +48,6 @@
   --green: #248A3D;
   --red: #C12E2A;
   --section-gap: clamp(120px, 18vw, 240px);
-  /* ===== GIF 手势动画规范 ===== */
-  --gif-radius: 12px;
-  --gif-border: rgba(0,0,0,0.06);
-  --gif-shadow: 0 4px 15px rgba(0,0,0,0.04);
 }
 
 /* ==================== 🌑 系统深色模式 (Dark Mode) ==================== */
@@ -402,17 +398,7 @@ svg.rink { width: 100%; cursor: pointer; border-radius: 14px; }
 .gesture-card:hover { border-color: var(--apple-border-strong); transform: translateY(-3px); }
 .gesture-front, .gesture-back { padding: 28px 20px; }
 .gesture-front { text-align: center; }
-.gesture-gif-wrap {
-  width: 100%; aspect-ratio: 1/1; overflow: hidden;
-  border-radius: var(--gif-radius); border: 1px solid var(--gif-border);
-  box-shadow: var(--gif-shadow); margin-bottom: 16px;
-}
-.gesture-gif {
-  width: 100%; height: 100%; object-fit: cover !important;
-  display: block; transition: transform .3s ease;
-}
-.gesture-card:hover .gesture-gif { transform: scale(1.05); }
-.gesture-emoji-fallback { font-size: 52px; display: block; margin-bottom: 16px; }
+.gesture-emoji { font-size: 52px; display: block; margin-bottom: 16px; line-height: 1.2; }
 .gesture-action { font-size: 13px; font-weight: 500; color: var(--apple-secondary); }
 .gesture-back { display: none; }
 .gesture-card.flipped .gesture-front { display: none; }
@@ -729,29 +715,6 @@ footer a { color: var(--ice); text-decoration: none; }
     font-size: 24px;
   }
   .star-hero-img img { max-width: 240px; max-height: 180px; }
-}
-
-/* ===== 裁判手势 SVG 动画关键帧 ===== */
-.gesture-svg { width: 100%; height: 100%; display: block; }
-@keyframes armRaise {
-  0%, 12% { transform: rotate(0deg); }
-  35%, 65% { transform: rotate(-118deg); }
-  88%, 100% { transform: rotate(0deg); }
-}
-@keyframes fistsLeft {
-  0%, 12% { transform: rotate(0deg); }
-  35%, 65% { transform: rotate(-52deg); }
-  88%, 100% { transform: rotate(0deg); }
-}
-@keyframes fistsRight {
-  0%, 12% { transform: rotate(0deg); }
-  35%, 65% { transform: rotate(52deg); }
-  88%, 100% { transform: rotate(0deg); }
-}
-@keyframes kneeTap {
-  0%, 12% { transform: rotate(0deg); }
-  30%, 70% { transform: rotate(28deg); }
-  88%, 100% { transform: rotate(0deg); }
 }
 </style>
 </head>
@@ -1094,12 +1057,12 @@ footer a { color: var(--ice); text-decoration: none; }
     <h2 class="title" style="margin-bottom:0;">冰球裁判不说话，<br>全靠<span>手势说话</span></h2>
     <button class="gesture-reset-btn" onclick="resetAllGestures()">↩ 全部复位</button>
   </div>
-  <p class="subtitle" style="margin-top:12px;">正面是判罚结果，点击翻转看裁判为什么要这么做。</p>
+  <p class="subtitle" style="margin-top:12px;">点击卡片翻转，看看裁判到底在比划什么。</p>
 
   <div class="gesture-grid" id="gesture-grid">
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/HuLc9aOLFbsAAAAM/hockey-referee-washout.gif" alt="Washout" loading="lazy"></div>
+        <span class="gesture-emoji">🙅</span>
         <div class="gesture-name">Washout</div>
         <div class="gesture-name-cn">无效 / 取消</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
@@ -1113,7 +1076,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="34" y2="60" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 42px;animation:armRaise 2.2s ease-in-out infinite"><line x1="60" y1="42" x2="86" y2="12" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="86" cy="12" r="4" fill="#0071E3"/></g></svg></div>
+        <span class="gesture-emoji">☝️</span>
         <div class="gesture-name">Delayed Penalty</div>
         <div class="gesture-name-cn">延迟判罚</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
@@ -1127,7 +1090,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="28" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="37" x2="60" y2="64" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="64" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="64" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><g style="transform-origin:60px 44px;animation:fistsLeft 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="40" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="34" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g><g style="transform-origin:60px 44px;animation:fistsRight 2.2s ease-in-out infinite"><line x1="60" y1="44" x2="80" y2="14" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><rect x="78" y="7" width="8" height="8" rx="2" fill="#0071E3"/></g></svg></div>
+        <span class="gesture-emoji">👊</span>
         <div class="gesture-name">Penalty Shot</div>
         <div class="gesture-name-cn">罚刀</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
@@ -1141,7 +1104,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/1pvgeLXIptYAAAAM/every-player-on-the-ice-ten-minute-misconduct.gif" alt="Misconduct" loading="lazy"></div>
+        <span class="gesture-emoji">😤</span>
         <div class="gesture-name">Misconduct</div>
         <div class="gesture-name-cn">违纪大罚 · 10分钟</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
@@ -1155,7 +1118,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><svg class="gesture-gif gesture-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="106" width="90" height="2" rx="1" fill="#E8E8ED"/><circle cx="60" cy="26" r="9" fill="none" stroke="#1D1D1F" stroke-width="2.2"/><line x1="60" y1="35" x2="60" y2="62" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round"/><line x1="60" y1="62" x2="47" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="62" x2="73" y2="92" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><line x1="60" y1="42" x2="36" y2="62" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"/><circle cx="73" cy="78" r="4.5" fill="none" stroke="#FF3B30" stroke-width="1.5" stroke-dasharray="2 2"/><g style="transform-origin:60px 42px;animation:kneeTap 1.6s ease-in-out infinite"><line x1="60" y1="42" x2="82" y2="78" stroke="#0071E3" stroke-width="3" stroke-linecap="round"/><circle cx="82" cy="78" r="3.5" fill="#0071E3"/></g></svg></div>
+        <span class="gesture-emoji">🦵</span>
         <div class="gesture-name">Kneeing</div>
         <div class="gesture-name-cn">膝盖顶人</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
@@ -1169,7 +1132,7 @@ footer a { color: var(--ice); text-decoration: none; }
 
     <div class="gesture-card" onclick="flipGesture(this)">
       <div class="gesture-front">
-        <div class="gesture-gif-wrap"><img class="gesture-gif" src="https://media.tenor.com/_fTX5CITMSQAAAAM/good-goal.gif" alt="Goal" loading="lazy"></div>
+        <span class="gesture-emoji">🥅</span>
         <div class="gesture-name">Goal</div>
         <div class="gesture-name-cn">进球确认！</div>
         <div class="gesture-flip-hint">点击翻转看细节 →</div>
